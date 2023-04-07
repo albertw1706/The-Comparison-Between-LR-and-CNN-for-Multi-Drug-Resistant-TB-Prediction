@@ -12,7 +12,7 @@ print(len(srr_accession))
 sample_arrays = []
 
 # Path to multi-FASTA file
-fasta_files = ["acpM-kasA.fasta", "rpsA.fasta"] 
+fasta_files = ["rpoB.fasta", "fabG_inhA.fasta", "katG.fasta", "ahpC.fasta", "pncA.fasta", "embB.fasta"] 
 
 # Define a mapping of nucleotides to integers
 nucleotide_dict = {'A': 0, 'T': 1, 'G': 2, 'C': 3, '-': 4}
@@ -68,7 +68,7 @@ for accession in srr_accession:
                             pass
 print (sample_arrays)
 
-selected_size = (2, 3760, 5)
+selected_size = (6, 3760, 5)
 
 filter_samples = np.where([samples.shape == selected_size for samples in sample_arrays])[0]
 filtered_list = [sample_arrays[i] for i in filter_samples]
@@ -80,8 +80,8 @@ sample_4d_array_shape = np.stack(filtered_list).shape
 print (sample_4d_array)
 print (sample_4d_array_shape)
 
-reshaped_4d_array = sample_4d_array.transpose(0, 3, 2, 1).reshape((25, 5, 3760, 2))
-reshaped_4d_array_shape = sample_4d_array.transpose(0, 3, 2, 1).reshape((25, 5, 3760, 2)).shape
+reshaped_4d_array = sample_4d_array.transpose(0, 3, 2, 1).reshape((12190, 5, 3760, 6))
+reshaped_4d_array_shape = sample_4d_array.transpose(0, 3, 2, 1).reshape((12190, 5, 3760, 6)).shape
 print (reshaped_4d_array)
 print (reshaped_4d_array_shape)
 
