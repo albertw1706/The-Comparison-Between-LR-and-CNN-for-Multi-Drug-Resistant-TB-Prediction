@@ -20,7 +20,7 @@ pncA_end = 2289282
 embB_start = 4246514
 embB_end = 4249878
 
-file = open("lists.txt", "r")
+file = open("Downloaded.txt", "r")
 read_file = file.read()
 srr_accession = read_file.split("\n")
 print(len(srr_accession))
