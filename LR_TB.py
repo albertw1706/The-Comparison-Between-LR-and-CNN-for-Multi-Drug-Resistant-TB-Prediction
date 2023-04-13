@@ -1,6 +1,7 @@
 import pandas as pd 
 import numpy as np
 import matplotlib.pyplot as plt
+import pickle as pkl
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
@@ -218,4 +219,9 @@ plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
 plt.title('ROC Curve')
 plt.show()
+
+models = {"Rifampicin": Rif_model, "Isoniazid": Iso_model, "Ethambutol": Eth_model, "Pyrazinamide": Pyr_model}
+
+with open('LR_model.pickle', 'wb') as f:
+    pkl.dump(models, f)
 
