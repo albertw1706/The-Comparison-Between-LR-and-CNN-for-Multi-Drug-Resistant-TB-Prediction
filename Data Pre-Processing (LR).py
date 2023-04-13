@@ -1,13 +1,16 @@
 #VCF dataframe
 from pdbio.vcfdataframe import VcfDataFrame
 import pandas as pd
+import os
 
 DF = pd.read_csv("LR_DataFrame.csv")
 print (DF)
 
 a = []
 
-file = open("Lists.txt", "r")
+os.environ['/vcf']
+
+file = open("Downloaded.txt", "r")
 read_file = file.read()
 lists = read_file.split("\n")
 print(lists)
@@ -52,4 +55,4 @@ for i in new_list :
     a.clear()
 print (DF)
 
-DF.to_csv('Modeltrial.csv')
+DF.to_csv('Model.csv')
