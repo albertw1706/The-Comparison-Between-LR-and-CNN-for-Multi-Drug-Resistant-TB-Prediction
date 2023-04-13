@@ -3,7 +3,7 @@ from Bio import SeqIO
 import pickle as pkl
 
 # SRR accession of interest
-file = open("lists.txt", "r")
+file = open("Downloaded.txt", "r")
 read_file = file.read()
 srr_accession = read_file.split("\n")
 print(len(srr_accession))
