@@ -10,7 +10,7 @@ a = []
 
 os.environ['/vcf']
 
-file = open("Downloaded.txt", "r")
+file = open("Downloaded_fix.txt", "r")
 read_file = file.read()
 lists = read_file.split("\n")
 print(lists)
