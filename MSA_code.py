@@ -1,5 +1,6 @@
 from Bio import SeqIO, AlignIO
 from Bio.Align import MultipleSeqAlignment
+import os
 
 # Define the region of interest
 rpoB_start = 759609
