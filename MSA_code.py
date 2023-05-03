@@ -26,14 +26,15 @@ read_file = file.read()
 srr_accession = read_file.split("\n")
 print(len(srr_accession))
 
-os.environ['CONSENSUS']
+dir = os.environ['CONSENSUS']
 
 def MSA(start, end):
     seq_records = []
     for accession in srr_accession:
-        file = accession + ".fa"
-        seq = next(SeqIO.parse(file, "fasta")).seq[start:end]
-        seq_records.append(SeqIO.SeqRecord(seq, id=accession, name="", description=""))
+        if accession : 
+            file = str(dir) + accession + ".fa"
+            seq = next(SeqIO.parse(file, "fasta")).seq[start:end]
+            seq_records.append(SeqIO.SeqRecord(seq, id=accession, name="", description=""))
     alignment = MultipleSeqAlignment(seq_records)
     print (seq_records)
     return alignment
