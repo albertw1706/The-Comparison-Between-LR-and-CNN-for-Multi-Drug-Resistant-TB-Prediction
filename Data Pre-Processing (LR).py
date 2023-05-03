@@ -8,7 +8,7 @@ print (DF)
 
 a = []
 
-os.environ['/vcf']
+dir = os.environ['VCF']
 
 file = open("Downloaded_fix.txt", "r")
 read_file = file.read()
@@ -26,10 +26,11 @@ del fs[0]
 print (fs)
 
 for i in new_list :    
-    vcf_path = i
+    vcf_path = str(dir) + i
     vcfdf = VcfDataFrame(path=vcf_path)
     print (vcfdf)
-    ERR = vcf_path.replace(".targets.csq.vcf.gz","")
+    words = vcf_path.replace(".targets.csq.vcf.gz","")
+    ERR = words.replace(str(dir),"")
     a.append(ERR)
 
     vcfdf.sort()   
