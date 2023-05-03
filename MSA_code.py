@@ -25,6 +25,8 @@ read_file = file.read()
 srr_accession = read_file.split("\n")
 print(len(srr_accession))
 
+os.environ['/consensus']
+
 def MSA(start, end):
     seq_records = []
     for accession in srr_accession:
