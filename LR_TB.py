@@ -8,8 +8,11 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import roc_curve
+import os
 
-DF = pd.read_csv("Modeltrial_Scale_100.csv")
+dir = os.environ('WORK')
+
+DF = pd.read_csv(str(dir) + "Model.csv")
 
 DF ['Rifampicin'] = DF ['Rifampicin'].replace({'S': 0, 'R': 1}, regex=True)
 DF ['Isoniazid'] = DF ['Isoniazid'].replace({'S': 0, 'R': 1}, regex=True)
