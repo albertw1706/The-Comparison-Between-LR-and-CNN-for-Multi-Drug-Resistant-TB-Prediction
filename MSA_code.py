@@ -26,7 +26,7 @@ read_file = file.read()
 srr_accession = read_file.split("\n")
 print(len(srr_accession))
 
-os.environ['/consensus']
+os.environ['CONSENSUS']
 
 def MSA(start, end):
     seq_records = []
