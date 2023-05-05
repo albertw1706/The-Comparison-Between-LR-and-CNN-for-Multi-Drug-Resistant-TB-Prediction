@@ -57,7 +57,7 @@ for accession in srr_accession:
                             if len(encoded) == 3760:
                                 break
                         print (sequences)
-                        if len(sequences) == 2:
+                        if len(sequences) == 6:
                             one_encoded = one_hot_encode(encoded)   
                             encoded_sequence.append(one_encoded)   
                             print (encoded_sequence)
@@ -85,10 +85,10 @@ reshaped_4d_array_shape = sample_4d_array.transpose(0, 3, 2, 1).reshape((12190, 
 print (reshaped_4d_array)
 print (reshaped_4d_array_shape)
 
-with open('CNN_input_test1.pickle', 'wb') as f:
+with open('CNN_input.pickle', 'wb') as f:
     pkl.dump(reshaped_4d_array, f)
 
-with open('CNN_input_test1.pickle', 'rb') as f:
+with open('CNN_input.pickle', 'rb') as f:
     loaded_data = pkl.load(f)
 
 print(np.array_equal(reshaped_4d_array, loaded_data))
