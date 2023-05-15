@@ -8,7 +8,6 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import roc_curve
-import os
 
 DF = pd.read_csv("Model_ready.csv")
 
