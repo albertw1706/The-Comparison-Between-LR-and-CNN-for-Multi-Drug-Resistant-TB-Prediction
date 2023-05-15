@@ -123,7 +123,20 @@ L2_Rif, Solver_Rif = get_cross_validation_and_hyperparameter_tuning(X, Rif)
 Rif_model, Rif_pred_ROC = get_logistic_regression_and_CM(L2_Rif, Solver_Rif, X_train, X_valid, Rif_train, Rif_valid)
 Rif_threshold, Rif_fpr, Rif_tpr = get_threshold(Rif_valid, Rif_pred_ROC)
 
+cpu_usage_percent_list_Rif = []
+start_time = time.time()
 Rif_test_pred = Rif_model.predict_proba (X_test)
+end_time = time.time()
+while True:
+    cpu_usage_percent = psutil.cpu_percent(interval=1)
+    cpu_usage_percent_list_Rif.append(cpu_usage_percent)
+    if time.time() - start_time > end_time - start_time:
+        break
+total_time = end_time - start_time
+print(f"Total time taken predicting test set (Rifampicin): {total_time:.2f} seconds")
+average_cpu_usage_percent = sum(cpu_usage_percent_list) / len(cpu_usage_percent_list)
+print(f"Average CPU usage during prediction (Rifampicin): {average_cpu_usage_percent:.2f}%")
+
 predictions = (Rif_test_pred[:, 1] >= Rif_threshold).astype(int)
 
 cm = confusion_matrix(Rif_test, predictions)
