@@ -26,7 +26,9 @@ read_file = file.read()
 srr_accession = read_file.split("\n")
 print(len(srr_accession))
 
-dir = os.environ['CONSENSUS']
+import os
+path = "consensus"
+os.chdir(path)
 
 def MSA(start, end):
     seq_records = []
@@ -38,6 +40,10 @@ def MSA(start, end):
     alignment = MultipleSeqAlignment(seq_records)
     print (seq_records)
     return alignment
+
+import os
+path = "/home/jupyter-albertw17"
+os.chdir(path)
 
 alignment = MSA(rpoB_start, rpoB_end)
 AlignIO.write(alignment, "rpoB.fasta", "fasta")
