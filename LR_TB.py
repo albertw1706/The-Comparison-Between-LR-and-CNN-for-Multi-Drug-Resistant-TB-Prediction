@@ -10,9 +10,7 @@ from sklearn.metrics import confusion_matrix
 from sklearn.metrics import roc_curve
 import os
 
-dir = os.environ('WORK')
-
-DF = pd.read_csv(str(dir) + "Model.csv")
+DF = pd.read_csv("Model_ready.csv")
 
 DF ['Rifampicin'] = DF ['Rifampicin'].replace({'S': 0, 'R': 1}, regex=True)
 DF ['Isoniazid'] = DF ['Isoniazid'].replace({'S': 0, 'R': 1}, regex=True)
