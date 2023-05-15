@@ -8,6 +8,8 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import roc_curve
+import time
+import psutil
 
 DF = pd.read_csv("Model_ready.csv")
 
@@ -36,7 +38,20 @@ Pyr = DF[output_Pyr]
 # Logistic regression and Confusion Matrix
 def get_logistic_regression_and_CM(L2_param, solver_param, X_train, X_valid, y_train, y_valid):
     logreg = LogisticRegression(max_iter=250, C=L2_param, penalty='l2', solver=solver_param, class_weight="balanced", random_state=0)
+    cpu_usage_percent_list = []
+    start_time = time.time()
     logreg.fit(X_train, y_train)
+    end_time = time.time()
+    while True:
+        cpu_usage_percent = psutil.cpu_percent(interval=1)
+        cpu_usage_percent_list.append(cpu_usage_percent)
+        if time.time() - start_time > end_time - start_time:
+            break
+    total_time = end_time - start_time
+    print(f"Total time taken: {total_time:.2f} seconds")
+    average_cpu_usage_percent = sum(cpu_usage_percent_list) / len(cpu_usage_percent_list)
+    print(f"Average CPU usage during training: {average_cpu_usage_percent:.2f}%")
+    
     y_pred = logreg.predict(X_valid)
     y_pred_ROC = logreg.predict_proba(X_valid)[:, 1]
     print('Accuracy of logistic regression classifier on valid set: {:.2f}'.format(logreg.score(X_valid, y_valid)))
