@@ -119,7 +119,7 @@ def confusion_matrix_test(y_test, y_pred):
     print ('The Specificity on test set is ' + str(Specificity))
 
 # ROC and Youden for Threshold
-def get_threshold(y_valid, y_pred_ROC):
+def get_threshold_and_ROC(y_valid, y_pred_ROC):
     fpr, tpr, thresholds = roc_curve(y_valid, y_pred_ROC)
 
     #Youden 
@@ -133,6 +133,13 @@ def get_threshold(y_valid, y_pred_ROC):
             best_j = j
             best_threshold = threshold
     print ((f'Best Threshold: {best_threshold:.3f}'))
+    
+    # Plot ROC curve
+    plt.plot(fpr, tpr)
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title('ROC Curve')
+    plt.show()
     return best_threshold, fpr, tpr
 
 # CNN model achitecture
@@ -210,10 +217,10 @@ Rif_valid = []
 
 Eth_valid, Iso_valid, Pyr_valid, Rif_valid = output_division (Y_valid, Eth_valid, Iso_valid, Pyr_valid, Rif_valid)
 
-Eth_threshold, Eth_fpr, Eth_tpr = get_threshold(Eth_valid, Eth_val_model)
-Iso_threshold, Iso_fpr, Iso_tpr = get_threshold(Iso_valid, Iso_val_model)
-Pyr_threshold, Pyr_fpr, Pyr_tpr = get_threshold(Pyr_valid, Pyr_val_model)
-Rif_threshold, Rif_fpr, Rif_tpr = get_threshold(Rif_valid, Rif_val_model)
+Eth_threshold, Eth_fpr, Eth_tpr = get_threshold_and_ROC(Eth_valid, Eth_val_model)
+Iso_threshold, Iso_fpr, Iso_tpr = get_threshold_and_ROC(Iso_valid, Iso_val_model)
+Pyr_threshold, Pyr_fpr, Pyr_tpr = get_threshold_and_ROC(Pyr_valid, Pyr_val_model)
+Rif_threshold, Rif_fpr, Rif_tpr = get_threshold_and_ROC(Rif_valid, Rif_val_model)
 
 print (Eth_threshold)
 print (Iso_threshold)
@@ -278,8 +285,6 @@ for fold, (train_index, test_index) in enumerate(skf.split(X, Y)):
     Iso_test_binary = decide_output(Iso_test_model, Iso_threshold)
     Pyr_test_binary = decide_output(Pyr_test_model, Pyr_threshold)
     Rif_test_binary = decide_output(Rif_test_model, Rif_threshold)
-
-    # TRY CHANGING THE METHOD BY SEPARATING EACH AND FORMING CONFUSION MATRIX DIRECTLY, ADD THE TEST AND MODEL RESULTS TO A LIST AND DO CM AT THE END 
 
     Eth_test_list_cv.extend(Eth_test)
     Eth_test_binary_list_cv.extend(Eth_test_binary)
