@@ -36,6 +36,7 @@ DF_Y ['Pyrazinamide'] = DF_Y ['Pyrazinamide'].replace({'S': 0, 'R': 1}, regex=Tr
 Y = DF_Y.values
 print (Y)
 
+@tf.function
 def weighted_bce(alpha, y_pred):
     y_pred = K.clip(y_pred, K.epsilon(), 1.0 - K.epsilon())
     alpha = K.abs(alpha)
@@ -43,6 +44,7 @@ def weighted_bce(alpha, y_pred):
     weighted_bce = K.sum(bce, axis=-1)
     return weighted_bce
 
+@tf.function
 def weighted_accuracy(alpha, y_pred):
     y_true_ = K.cast(K.greater(alpha, 0.), K.floatx())
     correct = K.sum(K.cast(K.equal(y_true_, K.round(y_pred)), K.floatx()))
@@ -179,7 +181,19 @@ model = create_model()
 Y_a_train, Y_a_valid = create_alpha_matrix(Y_train, Y_valid, weight=1.)
 
 earlystopping = EarlyStopping(monitor='val_loss', patience=20)
+cpu_usage_percent_list = []
+start_time = time.time()
 model.fit(X_train, Y_train, validation_data=(X_valid, Y_valid), epochs=250, batch_size=128, callbacks=earlystopping)
+end_time = time.time()
+while True:
+    cpu_usage_percent = psutil.cpu_percent(interval=1)
+    cpu_usage_percent_list.append(cpu_usage_percent)
+    if time.time() - start_time > end_time - start_time:
+        break
+total_time = end_time - start_time
+print(f"Total time taken: {total_time:.2f} seconds")
+average_cpu_usage_percent = sum(cpu_usage_percent_list) / len(cpu_usage_percent_list)
+print(f"Average CPU usage during training: {average_cpu_usage_percent:.2f}%")
 
 plt.figure()
 plt.plot(model.history.history['loss'])
@@ -261,7 +275,7 @@ for fold, (train_index, test_index) in enumerate(skf.split(X, Y)):
 
     # Train the model
     Y_a_train, Y_a_test = create_alpha_matrix(Y_train, Y_test, weight=1.)
-    earlystopping = EarlyStopping(monitor='val_loss', patience=1)
+    earlystopping = EarlyStopping(monitor='val_loss', patience=20)
     model.fit(X_train, Y_a_train, validation_data=(X_test, Y_a_test), epochs=250, callbacks=earlystopping)
 
     # Evaluate the model on the test data
@@ -300,7 +314,19 @@ confusion_matrix_valid(Iso_test_list_cv, Iso_test_binary_list_cv)
 confusion_matrix_valid(Pyr_test_list_cv, Pyr_test_binary_list_cv)
 confusion_matrix_valid(Rif_test_list_cv, Rif_test_binary_list_cv)
 
+cpu_usage_percent_list = []
+start_time = time.time()
 test_output = model.predict(X_test)
+end_time = time.time()
+while True:
+    cpu_usage_percent = psutil.cpu_percent(interval=1)
+    cpu_usage_percent_list.append(cpu_usage_percent)
+    if time.time() - start_time > end_time - start_time:
+        break
+total_time = end_time - start_time
+print(f"Total time taken: {total_time:.2f} seconds")
+average_cpu_usage_percent = sum(cpu_usage_percent_list) / len(cpu_usage_percent_list)
+print(f"Average CPU usage during prediction: {average_cpu_usage_percent:.2f}%")
 
 Eth_test_model = []
 Iso_test_model = []
