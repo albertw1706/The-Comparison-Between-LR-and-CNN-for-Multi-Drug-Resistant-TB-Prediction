@@ -80,8 +80,8 @@ sample_4d_array_shape = np.stack(filtered_list).shape
 print (sample_4d_array)
 print (sample_4d_array_shape)
 
-reshaped_4d_array = sample_4d_array.transpose(0, 3, 2, 1).reshape((12180, 5, 3888, 6))
-reshaped_4d_array_shape = sample_4d_array.transpose(0, 3, 2, 1).reshape((12180, 5, 3888, 6)).shape
+reshaped_4d_array = sample_4d_array.transpose(0, 3, 2, 1).reshape((12179, 5, 3888, 6))
+reshaped_4d_array_shape = sample_4d_array.transpose(0, 3, 2, 1).reshape((12179, 5, 3888, 6)).shape
 print (reshaped_4d_array)
 print (reshaped_4d_array_shape)
 
