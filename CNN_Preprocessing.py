@@ -50,11 +50,11 @@ for accession in srr_accession:
                     sequences.append(sequence)
                     sequence = ""
                     for encoded in sequences :
-                        if "c" in encoded and len(encoded) < 3760:
+                        if "c" in encoded and len(encoded) < 3888:
                             encoded += "-"
-                        while len(encoded) < 3760:
+                        while len(encoded) < 3888:
                             encoded += "-"
-                            if len(encoded) == 3760:
+                            if len(encoded) == 3888:
                                 break
                         print (sequences)
                         if len(sequences) == 6:
