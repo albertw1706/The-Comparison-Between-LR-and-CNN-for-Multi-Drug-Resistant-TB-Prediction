@@ -17,6 +17,7 @@ lists = read_file.split("\n")
 print(lists)
 string = '.targets.csq.vcf.gz'
 new_list = [x + string for x in lists]
+print (len(new_list))
 
 # Create a new DataFrame
 new = pd.DataFrame()
