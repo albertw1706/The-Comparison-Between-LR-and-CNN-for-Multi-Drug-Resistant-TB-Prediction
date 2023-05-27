@@ -41,16 +41,20 @@ print (Y)
 @tf.function
 def weighted_bce(alpha, y_pred):
     y_pred = K.clip(y_pred, K.epsilon(), 1.0 - K.epsilon())
+    y_true_ = K.cast(K.greater(alpha, 0.), K.floatx())
+    mask = K.cast(K.not_equal(alpha, 0.), K.floatx())
+    num_not_missing = K.sum(mask, axis=-1)
     alpha = K.abs(alpha)
-    bce = - alpha * K.log(y_pred) - (1.0 - alpha) * K.log(1.0 - y_pred)
-    weighted_bce = K.sum(bce, axis=-1)
-    return weighted_bce
+    bce = - alpha * y_true_ * K.log(y_pred) - (1.0 - alpha) * (1.0 - y_true_) * K.log(1.0 - y_pred)
+    masked_bce = bce * mask
+    return K.sum(masked_bce, axis=-1) / num_not_missing
 
 @tf.function
 def weighted_accuracy(alpha, y_pred):
+    total = K.sum(K.cast(K.not_equal(alpha, 0.), K.floatx()))
     y_true_ = K.cast(K.greater(alpha, 0.), K.floatx())
-    correct = K.sum(K.cast(K.equal(y_true_, K.round(y_pred)), K.floatx()))
-    total = K.sum(K.ones_like(y_pred))
+    mask = K.cast(K.not_equal(alpha, 0.), K.floatx())
+    correct = K.sum(K.cast(K.equal(y_true_, K.round(y_pred)), K.floatx()) * mask)
     return correct / total
 
 def create_alpha_matrix(Y_train, Y_valid, weight=1.):
