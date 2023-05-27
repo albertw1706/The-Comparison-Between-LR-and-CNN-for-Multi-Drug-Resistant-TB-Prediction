@@ -3,35 +3,37 @@ from pdbio.vcfdataframe import VcfDataFrame
 import pandas as pd
 import os
 
+# Read the csv file filled with the feature columns
 DF = pd.read_csv("LR_DataFrame.csv")
 print (DF)
 
-a = []
+# Create an empty list
+samples = []
 
-dir = os.environ['VCF']
-
+# Create a list of desired SRR accessions
 file = open("Downloaded_fix.txt", "r")
 read_file = file.read()
 lists = read_file.split("\n")
 print(lists)
 string = '.targets.csq.vcf.gz'
 new_list = [x + string for x in lists]
-print (new_list)
 
+# Create a new DataFrame
 new = pd.DataFrame()
 
+# Convert the feature columns to a list
 f = DF.columns.to_numpy()
 fs = f.tolist()
 del fs[0]
-print (fs)
 
+# Detect the presence of the features in each VCF files
 for i in new_list :    
     vcf_path = str(dir) + i
     vcfdf = VcfDataFrame(path=vcf_path)
     print (vcfdf)
     words = vcf_path.replace(".targets.csq.vcf.gz","")
     ERR = words.replace(str(dir),"")
-    a.append(ERR)
+    samples.append(ERR)
 
     vcfdf.sort()   
     dfdf = vcfdf.df.astype({'POS':'str'})
@@ -44,16 +46,15 @@ for i in new_list :
 
     g = new["sample"].to_numpy()
     gs = g.tolist()
-    print (gs)
 
     for x in fs :   
         if x in gs:
-            a.append(1) 
+            samples.append(1) 
         else : 
-            a.append(0)
-    DF.loc[len(DF)] = a
-    print (a)
-    a.clear()
+            samples.append(0)
+    DF.loc[len(DF)] = samples
+    samples.clear()
 print (DF)
 
+# Save the DataFrame into a CSV file
 DF.to_csv('Model.csv')
