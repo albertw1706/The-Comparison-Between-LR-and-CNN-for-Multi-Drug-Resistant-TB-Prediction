@@ -22,22 +22,26 @@ from keras.layers import Conv2D
 from keras.layers import Flatten
 from keras.optimizers import Adam
 
-
+# Open the pickle input file
 with open('CNN_input.pickle', 'rb') as f:
     X = pkl.load(f)
 
+# Convert the input file into tensors
 tf.convert_to_tensor (X)
 
+# Open the output CSV file
 DF_Y = pd.read_csv("CNN_output.csv")
 
+# Convert the "S" and "R" into "0" and "1"
 DF_Y ['Rifampicin'] = DF_Y ['Rifampicin'].replace({'S': 0, 'R': 1}, regex=True)
 DF_Y ['Isoniazid'] = DF_Y ['Isoniazid'].replace({'S': 0, 'R': 1}, regex=True)
 DF_Y['Ethambutol'] = DF_Y ['Ethambutol'].replace({'S': 0, 'R': 1}, regex=True)
 DF_Y ['Pyrazinamide'] = DF_Y ['Pyrazinamide'].replace({'S': 0, 'R': 1}, regex=True)
 
+# Convert the value into arrays
 Y = DF_Y.values
-print (Y)
 
+# Modified weighted binary cross entropy function from Green et al. (2022)
 @tf.function
 def weighted_bce(alpha, y_pred):
     y_pred = K.clip(y_pred, K.epsilon(), 1.0 - K.epsilon())
@@ -46,9 +50,10 @@ def weighted_bce(alpha, y_pred):
     num_not_missing = K.sum(mask, axis=-1)
     alpha = K.abs(alpha)
     bce = - alpha * y_true_ * K.log(y_pred) - (1.0 - alpha) * (1.0 - y_true_) * K.log(1.0 - y_pred)
-    masked_bce = bce * mask
-    return K.sum(masked_bce, axis=-1) / num_not_missing
+    weighted_bce = bce * mask
+    return K.sum(weighted_bce, axis=-1) / num_not_missing
 
+# Modified weighted accuracy function from Green et al. (2022)
 @tf.function
 def weighted_accuracy(alpha, y_pred):
     total = K.sum(K.cast(K.not_equal(alpha, 0.), K.floatx()))
@@ -57,6 +62,7 @@ def weighted_accuracy(alpha, y_pred):
     correct = K.sum(K.cast(K.equal(y_true_, K.round(y_pred)), K.floatx()) * mask)
     return correct / total
 
+# Function for class weirghting
 def create_alpha_matrix(Y_train, Y_valid, weight=1.):
     Arr = np.concatenate((Y_train, Y_valid), axis=0)
 
@@ -76,6 +82,7 @@ def create_alpha_matrix(Y_train, Y_valid, weight=1.):
 
     return Y_a_train, Y_a_valid
 
+# Function to the arrays into list of each drugs
 def output_division (list, Ethambutol, Isoniazid, Pyrazinamide, Rifampicin):
     for i in list:
         Ethambutol.append(i[0])
@@ -178,14 +185,17 @@ def create_model ():
         metrics=[weighted_accuracy])
 
     return model
-
+# Train test valid split
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, train_size=0.8, random_state=42)
 X_test, X_valid, Y_test, Y_valid= train_test_split(X_test, Y_test, test_size=0.5, random_state=42)
 
+# Create the model
 model = create_model()
 
+# Execute class weighting 
 Y_a_train, Y_a_valid = create_alpha_matrix(Y_train, Y_valid, weight=1.)
 
+# Train the model with early stopping and measuring cpu util and time
 earlystopping = EarlyStopping(monitor='val_loss', patience=20)
 cpu_usage_percent_list = []
 start_time = time.time()
@@ -201,6 +211,7 @@ print(f"Total time taken: {total_time:.2f} seconds")
 average_cpu_usage_percent = sum(cpu_usage_percent_list) / len(cpu_usage_percent_list)
 print(f"Average CPU usage during training: {average_cpu_usage_percent:.2f}%")
 
+# Plot loss and accuracy
 plt.figure()
 plt.plot(model.history.history['loss'])
 plt.plot(model.history.history['val_loss'])
@@ -221,6 +232,7 @@ plt.legend(['Train', 'Valid'])
 
 plt.show()
 
+# Divide the outputs into each lists
 valid_output = model.predict(X_valid)
 
 Eth_val_model = []
@@ -237,6 +249,7 @@ Rif_valid = []
 
 Eth_valid, Iso_valid, Pyr_valid, Rif_valid = output_division (Y_valid, Eth_valid, Iso_valid, Pyr_valid, Rif_valid)
 
+# Set the threshold
 Eth_threshold, Eth_fpr, Eth_tpr = get_threshold_and_ROC(Eth_valid, Eth_val_model)
 Iso_threshold, Iso_fpr, Iso_tpr = get_threshold_and_ROC(Iso_valid, Iso_val_model)
 Pyr_threshold, Pyr_fpr, Pyr_tpr = get_threshold_and_ROC(Pyr_valid, Pyr_val_model)
@@ -247,6 +260,7 @@ print (Iso_threshold)
 print (Pyr_threshold)
 print (Rif_threshold)
 
+# Output decision using threshold and confusion matrix assessment
 Eth_valid_binary = decide_output(Eth_val_model, Eth_threshold)
 Iso_valid_binary = decide_output(Iso_val_model, Iso_threshold)
 Pyr_valid_binary = decide_output(Pyr_val_model, Pyr_threshold)
@@ -257,6 +271,7 @@ confusion_matrix_valid (Iso_valid, Iso_valid_binary)
 confusion_matrix_valid (Pyr_valid, Pyr_valid_binary)
 confusion_matrix_valid (Rif_valid, Rif_valid_binary)
 
+# 10-fold cross validation
 skf = KFold(n_splits=10, shuffle=True, random_state=42)
 
 fold_scores = []
@@ -320,6 +335,7 @@ confusion_matrix_valid(Iso_test_list_cv, Iso_test_binary_list_cv)
 confusion_matrix_valid(Pyr_test_list_cv, Pyr_test_binary_list_cv)
 confusion_matrix_valid(Rif_test_list_cv, Rif_test_binary_list_cv)
 
+# Prediction and also measurement of cpu util and time
 cpu_usage_percent_list = []
 start_time = time.time()
 test_output = model.predict(X_test)
@@ -334,6 +350,7 @@ print(f"Total time taken: {total_time:.2f} seconds")
 average_cpu_usage_percent = sum(cpu_usage_percent_list) / len(cpu_usage_percent_list)
 print(f"Average CPU usage during prediction: {average_cpu_usage_percent:.2f}%")
 
+# Divide the outputs
 Eth_test_model = []
 Iso_test_model = []
 Pyr_test_model = []
@@ -341,6 +358,7 @@ Rif_test_model = []
 
 Eth_test_model, Iso_test_model, Pyr_test_model, Rif_test_model = output_division (test_output, Eth_test_model, Iso_test_model, Pyr_test_model, Rif_test_model)
 
+#Decide the output with threshold
 Eth_test_binary = decide_output(Eth_test_model, Eth_threshold)
 Iso_test_binary = decide_output(Iso_test_model, Iso_threshold)
 Pyr_test_binary = decide_output(Pyr_test_model, Pyr_threshold)
@@ -353,6 +371,7 @@ Rif_test = []
 
 Eth_test, Iso_test, Pyr_test, Rif_test = output_division (Y_test, Eth_test, Iso_test, Pyr_test, Rif_test)
 
+#Confusion matrix assessment
 confusion_matrix_test (Eth_test, Eth_test_binary)
 confusion_matrix_test (Iso_test, Iso_test_binary)
 confusion_matrix_test (Pyr_test, Pyr_test_binary)
