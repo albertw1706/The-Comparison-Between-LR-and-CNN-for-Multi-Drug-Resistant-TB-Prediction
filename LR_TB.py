@@ -93,7 +93,7 @@ def get_cross_validation_and_hyperparameter_tuning(X, y):
     model = LogisticRegression(max_iter=250, penalty='l2', class_weight="balanced")
     solvers = ['newton-cg', 'lbfgs', 'liblinear','sag', 'saga']
     penalty = ['l2']
-    c_values = np.arange(0.0000000001, 1, 10)
+    c_values = [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1]
 
     grid = dict(solver=solvers,penalty=penalty,C=c_values)
     cv = StratifiedKFold(n_splits=10, shuffle=True, random_state=42)
