@@ -5,7 +5,7 @@ Reproduced a Convolutional Neural Network model with an architecture from Green 
 
 -----------------
 
-The input for the CNN was a 4D tensor of one-hot encoded selected genes extracted from MSA files obtained from Green et al. (2022), while the input for LR was VCF files from preprocessed FASTQ files (using TB-Profiler from Phelan et al. (2019)).
+The input for the CNN was a 4D tensor of one-hot encoded selected genes extracted from MSA files obtained from Green et al. (2022), while the input for LR was the presence of important mutations in certain positions obtained from VCF files that come from preprocessed FASTQ files (using TB-Profiler from Phelan et al. (2019)).
 
 -----------------
 
