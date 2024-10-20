@@ -1,15 +1,14 @@
 # The Comparison Between LR and CNN for Multi-Drug Resistant TB Prediction
 
-
+## Project Overview
 Reproduced a Convolutional Neural Network model with an architecture from Green et al. (2022) and also created a Logistic Regression model to predict drug resistance in multi-drug resistant TB. 
 
 -----------------
+## Data Overview
+- The input for the CNN was a 4D tensor of one-hot encoded selected genes extracted from MSA files obtained from Green et al. (2022), while the input for LR was the presence of mutations in certain positions obtained from VCF files that come from preprocessing FASTQ files (using TB-Profiler from Phelan et al. (2019)). The mutations were non-phylogenetic mutations obtained from Coll et al. (2015) that are significant to cause resistance to their respective drugs.
 
-The input for the CNN was a 4D tensor of one-hot encoded selected genes extracted from MSA files obtained from Green et al. (2022), while the input for LR was the presence of mutations in certain positions obtained from VCF files that come from preprocessing FASTQ files (using TB-Profiler from Phelan et al. (2019)). The mutations were non-phylogenetic mutations obtained from Coll et al. (2015) that are significant to cause resistance to their respective drugs.
 
------------------
-
-The samples used were 12,179 TB samples selected from the fact that all of them had the Isoniazid, Pyrazinamide, Ethambutol, and Rifampicin (First-Line Drugs). The sample accessions can be found in the CSV file.
+- The samples used were 12,179 TB samples selected from the fact that all of them had the Isoniazid, Pyrazinamide, Ethambutol, and Rifampicin (First-Line Drugs). The sample accessions can be found in the CSV file.
 
 -----------------
 
