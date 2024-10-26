@@ -1,7 +1,7 @@
 # The Comparison Between LR and CNN for Multi-Drug Resistant TB Prediction
 
 ## Project Overview
-Multi-drug resistant tuberculosis (MDR-TB) is a disease caused by the Mycobacterium tuberculosis that could evade at least two different first-line anti tuberculosis drugs. MDR-TB poses a significant global health challenge, particularly in middle to lower income countries where affordable and rapid diagnostic tools are crucially needed. This situation has brought the idea of leveraging whole genome sequencing and machine learning for drug resistance predictions. Utilization of Mycobacterium tuberculosis genomic data from databases and data pre-processing allows the model to be able to train on the data. The goal of this project is to develop a Convolutional Neural Network model with an architecture from Green et al. (2022) and also a Logistic Regression model to predict drug resistance in multi-drug resistant TB. 
+Multi-drug resistant tuberculosis (MDR-TB) is a disease caused by the Mycobacterium tuberculosis that could evade at least two different first-line anti tuberculosis drugs. MDR-TB poses a significant global health challenge, particularly in middle to lower income countries where affordable and rapid diagnostic tools are crucially needed. This situation has brought the idea of leveraging whole genome sequencing and machine learning for drug resistance predictions. Utilization of Mycobacterium tuberculosis genomic data from databases and data pre-processing allows the model to be able to train on the data. The goal of this project is to develop a Convolutional Neural Network (CNN) model with an architecture from Green et al. (2022) and also a Logistic Regression (LR) model to predict drug resistance in multi-drug resistant TB. 
 
 ## Performance Evaluation Metric
 The performance evaluation metric that was used for the models are accuracy, sensitivity, and specificity. The main parameter was the accuracy, followed by sensitivity. The sensitivity parameter was chosen to be the more significant parameter over specificity for the assessment because the risk of further tests is insignificant and TB itself is curable in the preclinical phase (Gupta, 2013). The parameters were calculated from the True Positive (TP), False Positive (FP), True Negative (TN), and False Negative (FN) that are obtained from the confusion matrix. 
@@ -17,13 +17,23 @@ The performance evaluation metric that was used for the models are accuracy, sen
 
 ## Model Performance
 
-The summary of the CNN's performance on the test set : 
+- CNN's performance on the test set : 
 
 | **Parameter** | **Rifampicin** | **Isoniazid** | **Ethambutol** | **Pyrazinamide** |
 |-----------|----------------|---------------|----------------|------------------|
 | **Accuracy**         | 15  | 13        | 0.120          |  |
 | **Sensitivity**         | 15  | 13        | 0.120          |  |
 | **Specificity**         | 15  | 13        | 0.120          |  |
+
+- LR's performance on the test set :
+
+| **Parameter** | **Rifampicin** | **Isoniazid** | **Ethambutol** | **Pyrazinamide** |
+|-----------|----------------|---------------|----------------|------------------|
+| **Accuracy**         | 15  | 13        | 0.120          |  |
+| **Sensitivity**         | 15  | 13        | 0.120          |  |
+| **Specificity**         | 15  | 13        | 0.120          |  |
+
+- Bar chart of model's comparisons : 
 
 ## References : 
 
