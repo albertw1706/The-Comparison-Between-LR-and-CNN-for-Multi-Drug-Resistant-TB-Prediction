@@ -6,7 +6,7 @@ Multi-drug resistant tuberculosis (MDR-TB) is a disease caused by the Mycobacter
 ## Performance Evaluation Metric
 The performance evaluation metric that was used for the models are accuracy, sensitivity, and specificity. The main parameter was the accuracy, followed by sensitivity. The sensitivity parameter was chosen to be the more significant parameter over specificity for the assessment because the risk of further tests is insignificant and TB itself is curable in the preclinical phase (Gupta, 2013).
 
-Accuracy = $ TP + TN / TP + TN + FP + FN $
+Accuracy = $TP + TN / TP + TN + FP + FN$
 
 ## Data Overview
 - The input for the CNN was a 4D tensor of one-hot encoded selected genes extracted from MSA files obtained from Green et al. (2022), while the input for LR was the presence of mutations in certain positions obtained from VCF files that come from preprocessing FASTQ files (using TB-Profiler from Phelan et al. (2019)). The mutations were non-phylogenetic mutations obtained from Coll et al. (2015) that are significant to cause resistance to their respective drugs.
