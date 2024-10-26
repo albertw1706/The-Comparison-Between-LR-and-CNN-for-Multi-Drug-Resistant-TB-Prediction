@@ -33,7 +33,9 @@ The performance evaluation metric that was used for the models are accuracy, sen
 | **Sensitivity**         | 15  | 13        | 0.120          |  |
 | **Specificity**         | 15  | 13        | 0.120          |  |
 
-- Bar chart of model's comparisons : 
+- Bar chart of model's comparisons :
+
+![Accuracy](images/Figure accuracy.png)
 
 ## References : 
 
