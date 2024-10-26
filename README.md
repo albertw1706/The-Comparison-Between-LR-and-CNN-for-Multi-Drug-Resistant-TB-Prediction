@@ -37,7 +37,7 @@ The performance evaluation metric that was used for the models are accuracy, sen
 
 <img src="images/Figure accuracy.png">
 <img src="images/Figure sensitivity.png">
-<img src="images/Figure specifcity.png">
+<img src="images/Figure specificity.png">
 
 ## References : 
 
