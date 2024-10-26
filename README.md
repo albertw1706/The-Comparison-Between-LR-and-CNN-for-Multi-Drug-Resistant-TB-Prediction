@@ -6,7 +6,9 @@ Multi-drug resistant tuberculosis (MDR-TB) is a disease caused by the Mycobacter
 ## Performance Evaluation Metric
 The performance evaluation metric that was used for the models are accuracy, sensitivity, and specificity. The main parameter was the accuracy, followed by sensitivity. The sensitivity parameter was chosen to be the more significant parameter over specificity for the assessment because the risk of further tests is insignificant and TB itself is curable in the preclinical phase (Gupta, 2013).
 
-Accuracy = $TP + TN / TP + TN + FP + FN$
+Accuracy = $\frac{TP + TN}{TP + TN + FP + FN}$
+Sensitivity = $\frac{TP}{TP + FN}$
+Specificity = $\frac{TN}{TN + FP}$
 
 ## Data Overview
 - The input for the CNN was a 4D tensor of one-hot encoded selected genes extracted from MSA files obtained from Green et al. (2022), while the input for LR was the presence of mutations in certain positions obtained from VCF files that come from preprocessing FASTQ files (using TB-Profiler from Phelan et al. (2019)). The mutations were non-phylogenetic mutations obtained from Coll et al. (2015) that are significant to cause resistance to their respective drugs.
@@ -22,4 +24,4 @@ Accuracy = $TP + TN / TP + TN + FP + FN$
 - Coll, F., McNerney, R., Preston, M. D., Guerra-Assunção, J. A., Warry, A., Hill-Cawthorne, G., Mallard, K., Nair, M., Miranda, A., Alves, A., Perdigão, J., Viveiros, M., Portugal, I., Hasan, Z., Hasan, R., Glynn, J. R., Martin, N., Pain, A., & Clark, T. G. (2015). Rapid determination of anti-tuberculosis drug resistance from whole-genome sequences. Genome Medicine, 7(1). https://doi.org/10.1186/s13073-015-0164-0
 - Gupta, N. G. N. (2013). Accuracy, sensitivity and specificity measurement of various classification techniques on healthcare data. IOSR Journal of Computer Engineering, 11(5), 70–73. https://doi.org/10.9790/0661-1157073 
 
-$\frac{TP + TN}{TP + TN + FP + FN}$
+
