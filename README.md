@@ -17,6 +17,14 @@ The performance evaluation metric that was used for the models are accuracy, sen
 
 ## Model Performance
 
+The summary of the CNN's performance on the test set : 
+
+| **Parameter** | **Rifampicin** | **Isoniazid** | **Ethambutol** | **Pyrazinamide** |
+|-----------|----------------|---------------|----------------|------------------|
+| **Accuracy**         | 15  | 13        | 0.120          |  |
+| **Sensitivity**         | 15  | 13        | 0.120          |  |
+| **Specificity**         | 15  | 13        | 0.120          |  |
+
 ## References : 
 
 - Green, A. G., Yoon, C. H., Chen, M. L., Ektefaie, Y., Fina, M., Freschi, L., Gröschel, M. I., Kohane, I., Beam, A., & Farhat, M. (2022). A convolutional neural network highlights mutations relevant to antimicrobial resistance in Mycobacterium tuberculosis. Nature Communications, 13(1). https://doi.org/10.1038/s41467-022-31236-0
