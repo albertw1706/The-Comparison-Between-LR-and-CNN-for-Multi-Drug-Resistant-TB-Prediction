@@ -35,6 +35,7 @@ The performance evaluation metric that was used for the models are accuracy, sen
 
 - Bar chart of model's comparisons :
 
+<img src="images/Figure accuracy.png">
 ![Accuracy](images/Figure accuracy.png)
 
 ## References : 
