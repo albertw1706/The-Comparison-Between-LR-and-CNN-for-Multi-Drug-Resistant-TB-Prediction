@@ -21,3 +21,5 @@ Accuracy = $TP + TN / TP + TN + FP + FN$
 - Phelan, J. E., O’Sullivan, D. M., Machado, D., Ramos, J., Oppong, Y. E. A., Campino, S., O’Grady, J., McNerney, R., Hibberd, M. L., Viveiros, M., Huggett, J. F., & Clark, T. G. (2019). Integrating informatics tools and portable sequencing technology for rapid detection of resistance to anti-tuberculous drugs. Genome Medicine, 11(1). https://doi.org/10.1186/s13073-019-0650-x
 - Coll, F., McNerney, R., Preston, M. D., Guerra-Assunção, J. A., Warry, A., Hill-Cawthorne, G., Mallard, K., Nair, M., Miranda, A., Alves, A., Perdigão, J., Viveiros, M., Portugal, I., Hasan, Z., Hasan, R., Glynn, J. R., Martin, N., Pain, A., & Clark, T. G. (2015). Rapid determination of anti-tuberculosis drug resistance from whole-genome sequences. Genome Medicine, 7(1). https://doi.org/10.1186/s13073-015-0164-0
 - Gupta, N. G. N. (2013). Accuracy, sensitivity and specificity measurement of various classification techniques on healthcare data. IOSR Journal of Computer Engineering, 11(5), 70–73. https://doi.org/10.9790/0661-1157073 
+
+$\frac{1}{3}$
