@@ -21,17 +21,17 @@ The performance evaluation metric that was used for the models are accuracy, sen
 
 | **Parameter** | **Rifampicin** | **Isoniazid** | **Ethambutol** | **Pyrazinamide** |
 |-----------|----------------|---------------|----------------|------------------|
-| **Accuracy**         | 15  | 13        | 0.120          |  |
-| **Sensitivity**         | 15  | 13        | 0.120          |  |
-| **Specificity**         | 15  | 13        | 0.120          |  |
+| **Accuracy**         | 97.04% | 96.80% | 90.48% | 90.31% |
+| **Sensitivity**      | 93.75% | 94.09% | 94.12% | 84.85% |
+| **Specificity**      | 98.06% | 97.99% | 89.89% | 91.17% |
 
 - LR's performance on the test set :
 
 | **Parameter** | **Rifampicin** | **Isoniazid** | **Ethambutol** | **Pyrazinamide** |
 |-----------|----------------|---------------|----------------|------------------|
-| **Accuracy**         | 15  | 13        | 0.120          |  |
-| **Sensitivity**         | 15  | 13        | 0.120          |  |
-| **Specificity**         | 15  | 13        | 0.120          |  |
+| **Accuracy**         | 91.22%  | 97.04% | 91.54% | 88.34% |
+| **Sensitivity**      | 95.33%  | 94.32% | 91.00% | 88.04% |
+| **Specificity**      | 89.87%  | 98.32% | 91.65% | 88.39% |
 
 - Bar chart of model's comparisons :
 
