@@ -1,4 +1,4 @@
-# The Comparison Between Logistic Regression and Convolutional Neural Network for Multi-Drug Resistant TB Prediction
+# The Comparison Between Logistic Regression and Convolutional Neural Network for Multi-Drug Resistant Tuberculosis Prediction 
 
 ## Project Overview
 Multi-drug resistant tuberculosis (MDR-TB) is a disease caused by the Mycobacterium tuberculosis that could evade at least two different first-line anti tuberculosis drugs. MDR-TB poses a significant global health challenge, particularly in middle to lower income countries where affordable and rapid diagnostic tools are crucially needed. This situation has brought the idea of leveraging whole genome sequencing and machine learning for drug resistance predictions. Utilization of Mycobacterium tuberculosis genomic data from databases and data pre-processing allows the model to be able to train on the data. The goal of this project is to develop a Convolutional Neural Network (CNN) model with an architecture from Green et al. (2022) and also a Logistic Regression (LR) model to predict drug resistance in multi-drug resistant TB. 
